@@ -9,6 +9,9 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "io.framework7.myapp"
+    },
+    "cordova-plugin-browsersync-gen2": {
+      "PACKAGE_NAME": "io.framework7.myapp"
     }
   },
   "dependent_plugins": {}
