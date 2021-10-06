@@ -19,6 +19,8 @@ var app = new Framework7({
         {path: '/Tradder/',url: 'tradder.html',},
         
         {path: '/index/', url: 'index.html',},
+
+        {path: '/iniciar/', url: 'iniciar.html',},
     ]
     // ... other parameters
 });
@@ -42,3 +44,15 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
     console.log(e);
     alert('Hello');
 })
+
+// Sacar la navbar en el Iniciar sesión
+$$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
+    $$(".navbar").hide();
+})
+
+$$(document).on('page:init', '.page[data-name="index"]', function (e) {
+    $$(".navbar").show();
+})
+
+
+
