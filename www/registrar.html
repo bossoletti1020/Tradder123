@@ -1,45 +1,51 @@
-<div class="page" data-name="registra">
+<div class="page" data-name="registro">
+  <div class="page-content">
     <div class="page-content login-screen-content">
       <div class="login-screen-title" style="margin-top: 100px;">Registrate</div>
-      <form>
-        <div class="list">
-          <ul>
-            <li class="item-content item-input">
-                <div class="item-inner">
-                  <div class="item-title item-label">Nombre</div>
-                  <div class="item-input-wrap">
-                    <input type="text" name="nombre" placeholder="Nombre" id="rNombre" />
-                  </div>
-                </div>
-              </li>
-            <li class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Correo electrónico</div>
-                <div class="item-input-wrap">
-                  <input type="text" name="username" placeholder="Correo electrónico" id="rEmail" />
-                </div>
+
+      <div class="list">
+        <ul>
+          <li class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Nombre</div>
+              <div class="item-input-wrap">
+                <input type="text" id="rNombre" placeholder="Nombre" />
               </div>
-            </li>
-            <li class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Contraseña</div>
-                <div class="item-input-wrap">
-                  <input type="password" name="password" placeholder="Contraseña" id="rPass" />
-                </div>
+            </div>
+          </li>
+          <li class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Correo electrónico</div>
+              <div class="item-input-wrap">
+                <input type="email" id="rEmail" placeholder="Correo electrónico" />
               </div>
-            </li>
-          </ul>
+            </div>
+          </li>
+          <li class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Contraseña</div>
+              <div class="item-input-wrap">
+                <input type="password" id="rPass" placeholder="Contraseña" />
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="list">
+        <ul>
+
+        </ul>
+        <div class="block-footer">
+          <p><a href="/inicio/" class="link back" style="color: black;">¿Ya tenés cuenta? Logueate aca!</a></p> <br>
+          <p><a href="/index/" class="link back" style="color: black;">¿No queres registrarte? Tocá aca para volver</a>
+          </p>
         </div>
-        <div class="list">
-          <ul>
-            <!-- <li><a href="#" class="list-button" id="rGo">Registrate!</a></li> -->
-           <button id="rGo" class="col button button-fill button-round">Registrate</button> 
-          </ul>
-          <div class="block-footer">
-            <p><a href="/iniciar/" class="link back" style="color: black;">¿Ya tenés cuenta? Logueate aca!</a></p>
-            <p><a href="/index/" class="link back" style="color: black;">¿No queres registrarte? Tocá aca para volver</a></p>
-          </div>
+      </div>
+      <div class="block block-strong">
+        <div class="row">
+          <button id="rRegistro" class="col button button-fill button-round">Round</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
+</div>
