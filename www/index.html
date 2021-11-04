@@ -11,8 +11,8 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         |-->
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -50,19 +50,19 @@
                 <div class="navbar-bg"></div>
                 <div class="navbar-inner">
                     <div class="left">
-                            <div class="left">
-                                <a href="/index/" class="link back">
-                                    <i class="icon icon-back"></i>
-                                    <span class="ios-only">Back</span>
-                                </a>
-                            </div>
+                        <div class="left">
+                            <a href="/index/" class="link back">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Back</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="title">
                         Tradder
                     </div>
                     <div class="right">
-                        <a href="/iniciar/" class="button button-fill">Iniciar sesion</a>
-                            
+                        <a href="/registra/" class="button button-fill"> 
+                           Registrate
                         </a>
                     </div>
                 </div>
@@ -123,6 +123,32 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5-AjMO30ipGFwM5I1ekTf7jM7xHpvIIQ",
+            authDomain: "tradder-f283e.firebaseapp.com",
+            projectId: "tradder-f283e",
+            storageBucket: "tradder-f283e.appspot.com",
+            messagingSenderId: "178507492750",
+            appId: "1:178507492750:web:f41bf88c109fc00a87c8df"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
 
 
     <script type="text/javascript" src="cordova.js"></script>
