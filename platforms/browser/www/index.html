@@ -34,7 +34,6 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/app.css">
     <!--Nuestros estilos css-->
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -45,76 +44,109 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
 
-            <!-- Top Navbar -->
-            <div class="navbar navbar-fixed">
-                <div class="navbar-bg"></div>
-                <div class="navbar-inner">
-                    <div class="left">
-                        <div class="left">
-                            <a href="/index/" class="link back">
-                                <i class="icon icon-back"></i>
-                                <span class="ios-only">Back</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="title">
-                        Tradder
-                    </div>
 
-                    <div class="right">
-                        <a href="/registro/" class="button button-fill">
-                            Registrate
-                        </a>
-                        <a href="/inicio/" class="button button-fill">
-                            Iniciar sesion
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Toolbar -->
-            <div class="toolbar toolbar-bottom">
-                <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
-                </div>
-            </div>
 
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="index" class="page">
+                <!-- Top Navbar -->
+                <div class="navbar navbar-fixed">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <div class="left">
+                                <a href="/index/" class="link back">
+                                    <i class="icon icon-back"></i>
+                                    <span class="ios-only">Back</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="title">
+                            Tradder
+                        </div>
+
+                        <div class="right">
+                            <a href="/registro/" class="button button-fill">
+                                Registrate
+                            </a>
+                            <div class="right">
+                                <a href="/inicio/" class="button button-fill">
+                                    Iniciar sesion
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <div class="block">
                         <p>Page content goes here</p>
                         <!-- Link to another page -->
 
-                        <a href="/Tradder/" data-view=".page-content"> Jero Tradder</a>
+                        <div class="block">
+                            <div class="row">
+                                <div class="col-100 medium-50">
 
-                        <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
-                        <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
 
-                        <!-- And somewhere in DOM -->
-                        <div class="popup my-popup">
-                            <div class="view">
-                                <div class="page">
-                                    <div class="navbar">
-                                        <div class="navbar-bg"></div>
-                                        <div class="navbar-inner">
-                                            <div class="title">Popup</div>
-                                            <div class="right">
-                                                <!-- Link to close popup -->
-                                                <a class="link popup-close">Close</a>
-                                            </div>
+                                    <div class="card demo-card-header-pic">
+                                        <div style="background-image:url(https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg)"
+                                            class="card-header align-items-flex-end">Journey To Mountains</div>
+                                        <div class="card-content card-content-padding">
+                                            <p class="date">Posted on January 21, 2015</p>
+                                            <p>Quisque eget vestibulum nulla. Quisque quis dui quis ex ultricies
+                                                efficitur vitae non felis. Phasellus
+                                                quis nibh hendrerit...</p>
+                                        </div>
+                                        <div class="card-footer"><a href="#" class="link">Like</a><a href="#"
+                                                class="link">Read more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-100 medium-50">
+                                    <div class="card demo-card-header-pic">
+                                        <div style="background-image:url(https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg)"
+                                            class="card-header align-items-flex-end">Journey To Mountains</div>
+                                        <div class="card-content card-content-padding">
+                                            <p class="date">Posted on January 21, 2015</p>
+                                            <p>Quisque eget vestibulum nulla. Quisque quis dui quis ex ultricies
+                                                efficitur vitae non felis. Phasellus
+                                                quis nibh hendrerit...</p>
+                                        </div>
+                                        <div class="card-footer"><a href="#" class="link">Like</a><a href="#"
+                                                class="link">Read more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/Tradder/" data-view=".page-content"> Jero Tradder</a>
+
+                    <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
+                    <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
+
+                    <!-- And somewhere in DOM -->
+                    <div class="popup my-popup">
+                        <div class="view">
+                            <div class="page">
+                                <div class="navbar">
+                                    <div class="navbar-bg"></div>
+                                    <div class="navbar-inner">
+                                        <div class="title">Popup</div>
+                                        <div class="right">
+                                            <!-- Link to close popup -->
+                                            <a class="link popup-close">Close</a>
                                         </div>
                                     </div>
-                                    <div class="page-content">
-                                        <div class="page">
-                                            <div class="navbar">
-                                                <div class="navbar-bg"></div>
-                                                <div class="navbar-inner">
-                                                    <div class="title">Text Editor</div>
-                                                </div>
+                                </div>
+                                <div class="page-content">
+                                    <div class="page">
+                                        <div class="navbar">
+                                            <div class="navbar-bg"></div>
+                                            <div class="navbar-inner">
+                                                <div class="title">Text Editor</div>
                                             </div>
                                         </div>
                                     </div>
@@ -126,6 +158,7 @@
             </div>
         </div>
     </div>
+    </div>
 
 
 
@@ -136,7 +169,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-    
+
 
     <script>
         // Your web app's Firebase configuration

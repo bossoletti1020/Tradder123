@@ -1,4 +1,28 @@
 /* Your app custom styles here */
+
+div[class*="col"] {
+  text-align: center;
+  padding: 5px;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.demo-card-header-pic .card-header {
+  height: 50vw;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+div[class*="a"] {
+margin-right: 0px;
+}
+
+
+
+
+
+
 /* poppins-regular - latin */
 @font-face {
   font-family: 'Poppins';

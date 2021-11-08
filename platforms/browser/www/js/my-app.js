@@ -18,9 +18,9 @@ var app = new Framework7({
         { path: '/Tradder/', url: 'tradder.html', },
 
         { path: '/index/', url: 'index.html', },
-        
+
         { path: '/registro/', url: 'registrar.html', },
-        
+
         { path: '/inicio/', url: 'iniciar.html', },
 
     ]
@@ -62,7 +62,7 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
 
 })
 
-var emailDelUser="";
+var emailDelUser = "";
 
 var db = firebase.firestore();
 var colUsuario = db.collection("Usuarios");
@@ -75,49 +75,49 @@ function fnLogin() {
     passDelUser = $$('#lPass').val();
 
     firebase.auth().signInWithEmailAndPassword(emailDelUser, passDelUser)
-      .then((userCredential) => {
-        // Signed in
-        var user = userCredential.user;
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
 
-        console.log("Bienvenid@!!! " + emailDelUser);
+            console.log("Bienvenid@!!! " + emailDelUser);
 
-        claveDeColeccion = emailDelUser;
+            claveDeColeccion = emailDelUser;
 
-        var docRef = colUsuario.doc(claveDeColeccion);
+            var docRef = colUsuario.doc(claveDeColeccion);
 
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
 
-                console.log(doc.id);
-                console.log(doc.data().nombre);
-                console.log(doc.data().rol);
+                    console.log(doc.id);
+                    console.log(doc.data().nombre);
+                    console.log(doc.data().rol);
 
-                if (doc.data().rol == "admin") {
-                    mainView.router.navigate('/panelAdmin/');
+                    if (doc.data().rol == "admin") {
+                        mainView.router.navigate('/panelAdmin/');
+                    } else {
+                        mainView.router.navigate('/Tradder/');
+                    }
+
+
                 } else {
-                    mainView.router.navigate('/Tradder/');
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
                 }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
 
 
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
 
-
-        // ...
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.error(errorCode);
+            console.error(errorCode);
             console.error(errorMessage);
-      });
+        });
 
 
 
@@ -132,12 +132,12 @@ function fnRegistro() {
     // cada un@ pone su magia para recuperar el mail y la clave de un form...
     emailDelUser = $$('#rEmail').val();
     passDelUser = $$('#rPass').val();
-    
+
 
     firebase.auth().createUserWithEmailAndPassword(emailDelUser, passDelUser)
         .then((userCredential) => {
             // Signed in
-            var user = userCredential.user;     
+            var user = userCredential.user;
             console.log("Bienvenid@!!! " + emailDelUser);
             console.log(passDelUser);
             // ...
@@ -147,9 +147,15 @@ function fnRegistro() {
             claveDeColeccion = emailDelUser;
 
             nombre = $$('#rNombre').val();
-           
+            dni = $$('#rDNI').val();
+            fecha = $$('#rFecha').val();
+            genero = $$('#rGenero').val();
+
             datos = {
                 nombre: nombre,
+                dni: dni,
+                fecha: fecha,
+                genero: genero,
                 rol: "usuario"
             }
 
