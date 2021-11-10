@@ -141,23 +141,28 @@ function fnRegistro() {
             console.log("Bienvenid@!!! " + emailDelUser);
             console.log(passDelUser);
             // ...
-            //mainView.router.navigate('/siguientePantallaDeUsuarioOK/');
+            mainView.router.navigate('/inicio/');
 
 
             claveDeColeccion = emailDelUser;
 
             nombre = $$('#rNombre').val();
+            apellido = $$('#rApellido').val();
             dni = $$('#rDNI').val();
             fecha = $$('#rFecha').val();
             genero = $$('#rGenero').val();
 
             datos = {
                 nombre: nombre,
+                apellido: apellido,
                 dni: dni,
                 fecha: fecha,
                 genero: genero,
                 rol: "usuario"
             }
+
+
+
 
             colUsuario.doc(claveDeColeccion).set(datos)
                 .then(() => {

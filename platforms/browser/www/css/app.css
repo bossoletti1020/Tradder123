@@ -13,9 +13,21 @@ div[class*="col"] {
   background-position: center;
   color: #fff;
 }
+.navbar-bg{
+  background-color: #38b000 ;
+}
 
-div[class*="a"] {
-margin-right: 0px;
+.botonesnav {
+  height: 30px !important;
+  width: 90px !important;
+  font-size: 11px !important;
+  margin: 2px !important;
+  background-color: #003376;
+}
+
+.title{
+  font-size: 19px !important; 
+  color: white;
 }
 
 
