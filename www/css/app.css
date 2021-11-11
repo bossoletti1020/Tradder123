@@ -22,7 +22,9 @@ div[class*="col"] {
   width: 90px !important;
   font-size: 11px !important;
   margin: 2px !important;
-  background-color: #003376;
+  background-color: black;
+
+
 }
 
 .title{
@@ -40,7 +42,9 @@ background-color: #DBDBDB;
   margin-bottom: 2px;
 }
 
-
+.pagina{
+  background-color: #F8F8F8;
+}
 
 
 

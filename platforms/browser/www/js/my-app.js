@@ -69,6 +69,21 @@ var colUsuario = db.collection("Usuarios");
 
 //Logueo
 
+const loggedOutLinks = document.querySelectorAll ('.log')
+const loggedInLinks = document.querySelectorAll ('.login')
+
+
+const loginCheck = user => {
+    if (user){
+      loggedInLinks.forEach(link => link.style.display = 'block');
+      loggedOutLinks.forEach(link => link.style.display = 'none');  
+    }else{
+        loggedOutLinks.forEach(link => link.style.display = 'block');
+        loggedInLinks.forEach(link => link.style.display = 'none'); 
+    }
+}
+
+
 function fnLogin() {
 
     emailDelUser = $$('#lEmail').val();
@@ -85,6 +100,8 @@ function fnLogin() {
 
             var docRef = colUsuario.doc(claveDeColeccion);
 
+            
+
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
@@ -92,17 +109,24 @@ function fnLogin() {
                     console.log(doc.id);
                     console.log(doc.data().nombre);
                     console.log(doc.data().rol);
+                    
+                    loginCheck(user);
 
                     if (doc.data().rol == "admin") {
                         mainView.router.navigate('/panelAdmin/');
                     } else {
-                        mainView.router.navigate('/Tradder/');
+                        mainView.router.navigate('/index/');
+
+                        loggedInLinks.forEach(link => link.style.display == 'block');
+                        loggedOutLinks.forEach(link => link.style.display == 'none');
                     }
 
 
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
+
+                    loginCheck(user);
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);

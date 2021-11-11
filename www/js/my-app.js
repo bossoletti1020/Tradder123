@@ -23,6 +23,8 @@ var app = new Framework7({
 
         { path: '/inicio/', url: 'iniciar.html', },
 
+        { path: '/publicar/', url: 'publicar.html', },
+
     ]
     // ... other parameters
 });
@@ -69,6 +71,9 @@ var colUsuario = db.collection("Usuarios");
 
 //Logueo
 
+
+
+
 function fnLogin() {
 
     emailDelUser = $$('#lEmail').val();
@@ -85,6 +90,8 @@ function fnLogin() {
 
             var docRef = colUsuario.doc(claveDeColeccion);
 
+            
+
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
@@ -96,7 +103,10 @@ function fnLogin() {
                     if (doc.data().rol == "admin") {
                         mainView.router.navigate('/panelAdmin/');
                     } else {
-                        mainView.router.navigate('/Tradder/');
+                        mainView.router.navigate('/index/');
+
+                        loggedInLinks.forEach(link => link.style.display == 'block');
+                        loggedOutLinks.forEach(link => link.style.display == 'none');
                     }
 
 
