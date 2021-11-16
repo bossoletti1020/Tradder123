@@ -23,6 +23,10 @@ var app = new Framework7({
 
         { path: '/inicio/', url: 'iniciar.html', },
 
+        { path: '/publicar/', url: 'publicar.html', },
+
+        { path: '/iniciado/', url: 'iniciado.html', }
+
     ]
     // ... other parameters
 });
@@ -46,6 +50,16 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
 })
 
+$$(document).on('page:init', '.page[data-name="iniciado"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    console.log(e);
+
+    $$('#bRegistro').css("display", "none");
+    $$('#bLogin').css("display", "none");
+    $$('#registrado').css("display", "block");
+    $$('#bPublicar').css("display", "block");
+})
+
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
@@ -62,6 +76,12 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
 
 })
 
+$$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    matemateo();
+    matemateo2();
+})
+
 var emailDelUser = "";
 
 var db = firebase.firestore();
@@ -69,18 +89,43 @@ var colUsuario = db.collection("Usuarios");
 
 //Logueo
 
-const loggedOutLinks = document.querySelectorAll ('.log')
-const loggedInLinks = document.querySelectorAll ('.login')
+function matemateo() {
+    $$('#pImagen').on('change', function () {
+        var storageRef = firebase.storage().ref();
+        var imageRef = storageRef.child('mateoImagen');
+        var file = this.files[0];
 
+        imageRef.put(file).then(function (snapshot) {
+            console.log('Uploaded a blob or file!');
+        })
+    });
+}
 
-const loginCheck = user => {
-    if (user){
-      loggedInLinks.forEach(link => link.style.display = 'block');
-      loggedOutLinks.forEach(link => link.style.display = 'none');  
-    }else{
-        loggedOutLinks.forEach(link => link.style.display = 'block');
-        loggedInLinks.forEach(link => link.style.display = 'none'); 
-    }
+function matemateo2() {
+    $$('#pPublicar').on('click', function() {
+        var storageRef = firebase.storage().ref();
+        var imageRef = storageRef.child('mateoImagen');
+        
+        imageRef.getDownloadURL().then(function(url) {
+            // `url` is the download URL for 'images/stars.jpg'
+          
+            // This can be downloaded directly:
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function(event) {
+              var blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+          
+            // Or inserted into an <img> element:
+            // var img = document.getElementById('myimg');
+            // img.src = url;
+            console.log(url);
+          }).catch(function(error) {
+            // Handle any errors
+          });
+    })
 }
 
 
@@ -100,7 +145,7 @@ function fnLogin() {
 
             var docRef = colUsuario.doc(claveDeColeccion);
 
-            
+
 
             docRef.get().then((doc) => {
                 if (doc.exists) {
@@ -109,24 +154,18 @@ function fnLogin() {
                     console.log(doc.id);
                     console.log(doc.data().nombre);
                     console.log(doc.data().rol);
-                    
-                    loginCheck(user);
 
                     if (doc.data().rol == "admin") {
                         mainView.router.navigate('/panelAdmin/');
                     } else {
-                        mainView.router.navigate('/index/');
+                        mainView.router.navigate('/iniciado/');
 
-                        loggedInLinks.forEach(link => link.style.display == 'block');
-                        loggedOutLinks.forEach(link => link.style.display == 'none');
                     }
 
 
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
-
-                    loginCheck(user);
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
