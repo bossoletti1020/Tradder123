@@ -27,7 +27,7 @@ var app = new Framework7({
 
         { path: '/iniciado/', url: 'iniciado.html', },
 
-        { path: '/chat/', url: 'chat.html', },
+        { path: '/Chat/', url: 'chat2.html', },
 
     ]
     // ... other parameters
@@ -83,6 +83,28 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     matemateo();
     matemateo2();
 })
+
+
+$$(document).on('page:init', '.page[data-name="chat"]', function (e) {
+    var txtNombre = document.getElementById("nombre");
+    var txtMensaje = document.getElementById("Mensaje");
+    var txtEnviar = document.getElementById("btnEnviar");
+    var chatUl = document.getElementById("chatUl");
+
+
+
+    btnEnviar.addEventListener("click", function () {
+      var nombre = txtNombre.value;
+      var mensaje = txtMensaje.value;
+      var html = "<li><b>" +nombre+": </b>" + mensaje +"</li>";
+      chatUl.innerHTML += html;
+    });
+})
+
+
+
+
+
 
 var emailDelUser = "";
 
