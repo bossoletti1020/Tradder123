@@ -76,10 +76,13 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
 
 })
 
-var imgNombre, imgUrl;
 $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
 
+
+    var colProducto = db.collection("Producto");
+    var imgNombre = "";
+    var imgUrl;
     var files = [];
     var reader = new FileReader();
 
@@ -101,15 +104,13 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
 
     $$('#pSubir').on('click', function () {
         imgNombre = $$('#pNombre').val();
-        var uploadTask = firebase.storage().ref('Imagen/' + imgNombre + ".png").put(files[0]).then(() =>  uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
-            imgUrl = url;
-        }));
+        var uploadTask = firebase.storage().ref('Imagen/' + imgNombre + ".png").put(files[0])
+
 
 
         uploadTask.on('stage_changed', function (snapshot) {
-            var progress = (snapshot.bytesTranferred / snapshot.totalBytes) * 100;
-
-            $$('#upProgress').html('Upload' + progress + '%');
+            var progress = (snapshot.bytesTranfered / snapshot.totalBytes) * 100;
+            $$('#upProgress').html('Upload ' + progress + '%');
         },
 
             function (error) {
@@ -117,36 +118,40 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
             },
 
             function () {
-               
-
-                console.log(imgUrl);
-
-                datos2 = {
-                    Nombre: imgNombre,
-                    URL: imgUrl
-                }
-
-                colProducto.doc('Pictures/' + imgNombre).set(datos2)
-                .then(() => {
-                    console.log("Document successfully written!");
-                })
-                .catch((error) => {
-                    console.error("Error writing document: ", error);
+                uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
+                    imgUrl = url;
+                    console.log(imgUrl);
+                    console.log(imgNombre);
                 });
 
-                alert('image added successfully');
+                // firebase.firestore().ref(colProducto).set({
+                //     Nombre: imgName,
+                //     Link: imgUrl
+                // })
+
+
+                claveColeccion = imgUrl;
+
+        
+
+                colProducto.doc(claveColeccion).set({
+                    Nombre: imgNombre,
+                    Link: imgUrl
+                })
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+
             }
+
         );
-
-
-
-
 
     })
 
 
-    // matemateo();
-    // matemateo2();
 
 })
 
@@ -206,7 +211,7 @@ var emailDelUser = "";
 
 var db = firebase.firestore();
 var colUsuario = db.collection("Usuarios");
-var colProducto = db.collection("Producto");
+
 
 
 //Logueo
