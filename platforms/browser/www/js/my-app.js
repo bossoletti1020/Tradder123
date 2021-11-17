@@ -76,57 +76,140 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
 
 })
 
+var imgNombre, imgUrl;
 $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
-    matemateo();
-    matemateo2();
+
+    var files = [];
+    var reader = new FileReader();
+
+    $$('#pSeleccionar').on('click', function (e) {
+        var input = document.createElement('input');
+        input.type = 'file';
+
+
+        input.onchange = e => {
+            files = e.target.files;
+            reader = new FileReader();
+            reader.onload = function () {
+                $$("#myImg").attr('src', this.result);
+            }
+            reader.readAsDataURL(files[0]);
+        }
+        input.click();
+    })
+
+    $$('#pSubir').on('click', function () {
+        imgNombre = $$('#pNombre').val();
+        var uploadTask = firebase.storage().ref('Imagen/' + imgNombre + ".png").put(files[0]).then(() =>  uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
+            imgUrl = url;
+        }));
+
+
+        uploadTask.on('stage_changed', function (snapshot) {
+            var progress = (snapshot.bytesTranferred / snapshot.totalBytes) * 100;
+
+            $$('#upProgress').html('Upload' + progress + '%');
+        },
+
+            function (error) {
+                alert('error in saving the image');
+            },
+
+            function () {
+               
+
+                console.log(imgUrl);
+
+                datos2 = {
+                    Nombre: imgNombre,
+                    URL: imgUrl
+                }
+
+                colProducto.doc('Pictures/' + imgNombre).set(datos2)
+                .then(() => {
+                    console.log("Document successfully written!");
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
+
+                alert('image added successfully');
+            }
+        );
+
+
+
+
+
+    })
+
+
+    // matemateo();
+    // matemateo2();
+
 })
+
+
+
+
+
+
+// nombreImagen = $$('#lEmail').val();
+
+
+// function matemateo() {
+//     $$('#pImagen').on('change', function () {
+//         var storageRef = firebase.storage().ref();
+//         var imageRef = storageRef.child('mateoImagen');
+//         var file = this.files[0];
+
+//         imageRef.put(file).then(function (snapshot) {
+//             console.log('Uploaded a blob or file!');
+//         })
+//     });
+
+//     $$('#pPublicar').on('click', function() {
+//         var storageRef = firebase.storage().ref();
+//         var imageRef = storageRef.child('mateoImagen');
+
+//         imageRef.getDownloadURL().then(function(url) {
+//             // `url` is the download URL for 'images/stars.jpg'
+
+//             // This can be downloaded directly:
+//             var xhr = new XMLHttpRequest();
+//             xhr.responseType = 'blob';
+//             xhr.onload = function(event) {
+//               var blob = xhr.response;
+//             };
+//             xhr.open('GET', url);
+//             xhr.send();
+
+//             // Or inserted into an <img> element:
+//             // var img = document.getElementById('myimg');
+//             // img.src = url;
+//             console.log(url);
+//           }).catch(function(error) {
+//             // Handle any errors
+//           });
+//     })
+
+// }
+
+// function matemateo2() {
+
+// }
+
+
 
 var emailDelUser = "";
 
 var db = firebase.firestore();
 var colUsuario = db.collection("Usuarios");
+var colProducto = db.collection("Producto");
+
 
 //Logueo
-
-function matemateo() {
-    $$('#pImagen').on('change', function () {
-        var storageRef = firebase.storage().ref();
-        var imageRef = storageRef.child('mateoImagen');
-        var file = this.files[0];
-
-        imageRef.put(file).then(function (snapshot) {
-            console.log('Uploaded a blob or file!');
-        })
-    });
-}
-
-function matemateo2() {
-    $$('#pPublicar').on('click', function() {
-        var storageRef = firebase.storage().ref();
-        var imageRef = storageRef.child('mateoImagen');
-        
-        imageRef.getDownloadURL().then(function(url) {
-            // `url` is the download URL for 'images/stars.jpg'
-          
-            // This can be downloaded directly:
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function(event) {
-              var blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
-          
-            // Or inserted into an <img> element:
-            // var img = document.getElementById('myimg');
-            // img.src = url;
-            console.log(url);
-          }).catch(function(error) {
-            // Handle any errors
-          });
-    })
-}
 
 
 function fnLogin() {
