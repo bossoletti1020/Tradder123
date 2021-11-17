@@ -25,7 +25,9 @@ var app = new Framework7({
 
         { path: '/publicar/', url: 'publicar.html', },
 
-        { path: '/iniciado/', url: 'iniciado.html', }
+        { path: '/iniciado/', url: 'iniciado.html', },
+
+        { path: '/chat/', url: 'chat.html', },
 
     ]
     // ... other parameters
@@ -250,6 +252,19 @@ function fnRegistro() {
 
             // ..
         });
+
+
+
+
+        
+
+
+
+
+
+
+
+
 
 
 
