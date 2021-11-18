@@ -85,22 +85,38 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
 })
 
 
-$$(document).on('page:init', '.page[data-name="chat"]', function (e) {
-    var txtNombre = document.getElementById("nombre");
-    var txtMensaje = document.getElementById("Mensaje");
-    var txtEnviar = document.getElementById("btnEnviar");
-    var chatUl = document.getElementById("chatUl");
+$$(document).on('page:init', '.page[data-name="Chat"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$("#EnviarM").on("click", fnHola); 
 
 
-
-    btnEnviar.addEventListener("click", function () {
-      var nombre = txtNombre.value;
-      var mensaje = txtMensaje.value;
-      var html = "<li><b>" +nombre+": </b>" + mensaje +"</li>";
-      chatUl.innerHTML += html;
-    });
 })
 
+function fnHola (){
+
+ Mensaje = $$("#Mensaje").val();
+ Nombre = emailDelUser;
+ var hoy = new Date();
+ var fecha = hoy.getDate() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getFullYear();
+ var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+ var timeMessage = fecha + ' ' + hora;
+
+var Envio = "";
+
+ Envio += ` <div class="messages-title"><b>` + Nombre +  `<br>`  + timeMessage + `</b></div>
+
+ <!-- Sent message (by default - green and on right side) -->
+ <div class="message message-sent">
+   <div class="message-content">
+     <!-- Bubble with text -->
+     <div class="message-bubble">
+     <div class="message-text">` + Mensaje + `</div>
+     </div>
+   </div>
+ </div>`;
+    $$("#Msg").append(Envio);
+
+}
 
 
 

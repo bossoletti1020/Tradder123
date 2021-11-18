@@ -1,51 +1,60 @@
 /* Your app custom styles here */
 
-div[class*="col"] {
-  text-align: center;
-  padding: 5px;
-  font-size: 15px;
-  margin-bottom: 16px;
-}
-
-.demo-card-header-pic .card-header {
-  height: 50vw;
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-}
-.navbar-bg{
-  background-color: #38b000 ;
-}
-
-.botonesnav {
-  height: 30px !important;
-  width: 90px !important;
-  font-size: 11px !important;
-  margin: 2px !important;
-  background-color: black;
-
-
-}
-
-.title{
-  font-size: 19px !important; 
-  color: white;
-}
-
-.login-screen .page, .login-screen-content {
-background-color: #DBDBDB;
-}
-
-
-
-.bajar{
-  margin-bottom: 2px;
-}
-
-.pagina{
-  background-color: #F8F8F8;
-}
-
+body {
+	font:12px arial;
+	color: #222;
+	text-align:center;
+	padding:35px; }
+ 
+form, p, span {
+	margin:0;
+	padding:0; }
+ 
+input { font:12px arial; }
+ 
+a {
+	color:#0000FF;
+	text-decoration:none; }
+ 
+	a:hover { text-decoration:underline; }
+ 
+#wrapper, #loginform {
+	margin:0 auto;
+	padding-bottom:25px;
+	background:#EBF4FB;
+	width:504px;
+	border:1px solid #ACD8F0; }
+ 
+#loginform { padding-top:18px; }
+ 
+	#loginform p { margin: 5px; }
+ 
+#chatbox {
+	text-align:left;
+	margin:0 auto;
+	margin-bottom:25px;
+	padding:10px;
+	background:#fff;
+	height:270px;
+	width:430px;
+	border:1px solid #ACD8F0;
+	overflow:auto; }
+ 
+#usermsg {
+	width:395px;
+	border:1px solid #ACD8F0; }
+ 
+#submit { width: 60px; }
+ 
+.error { color: #ff0000; }
+ 
+#menu { padding:12.5px 25px 12.5px 25px; }
+ 
+.welcome { float:left; }
+ 
+.logout { float:right; }
+ 
+.msgln { margin:0 0 2px 0; }
 
 
 
