@@ -33,6 +33,10 @@ var app = new Framework7({
 
 var mainView = app.views.create('.view-main');
 
+var db = firebase.firestore();
+var colUsuario = db.collection("Usuarios");
+var colProducto = db.collection("Producto");
+
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
@@ -47,6 +51,58 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            var uid = user.uid;
+            console.log(uid);
+            // ...
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
+
+    colProducto.where("rol", "==", "producto")
+        .get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+
+                colUsuario.where('id', '==', uid).get().then((querySnapshot) => {
+
+                }).catch((error) => {
+                    console.log("Error getting documents: ", error);
+                }) 
+
+
+                $$(".pedropicapiedra").append(
+                    '<div class="card demo-card-header-pic">' +
+                    '<img src="' + doc.data().photoURL + '" class="card-header align-items-flex-end" style="height: 200px; width: 200px; border: 2px solid black;">' +
+                     doc.data().Nombre +
+                    '<div class="card-content card-content-padding">' +
+                    '<p class="date">' +
+                    doc.data().Direccion +
+                    '</p>' +
+                    '<p>' +
+                    doc.data().Descripcion +
+                    '</p>' +
+                    '</div>' +
+                    '<div class="card-footer">' +
+                    '<a href="#" class="link">' +
+                    "Like" +
+                    '</a>' +
+                    '<a href="#" class="link">' +
+                    "Read more" +
+                    '</a>' +
+                    '</div>' +
+                    '</div >');
+            })
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 
 })
 
@@ -76,13 +132,12 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
 
 })
 
+var imgUrl;
 $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
 
 
-    var colProducto = db.collection("Producto");
     var imgNombre = "";
-    var imgUrl;
     var files = [];
     var reader = new FileReader();
 
@@ -103,56 +158,46 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     })
 
     $$('#pSubir').on('click', function () {
+
         imgNombre = $$('#pNombre').val();
-        var uploadTask = firebase.storage().ref('Imagen/' + imgNombre + ".png").put(files[0])
+        imgDescripcion = $$('#pDescripcion').val();
+        imgDireccion = $$('#pDireccion').val()
 
+        var imagesRef = firebase.storage().ref('Imagen/' + imgNombre + ".png");
 
+        imagesRef.put(files[0]).then(function (snapshot) {
+            console.log('Uploaded a blob or file!');
 
-        uploadTask.on('stage_changed', function (snapshot) {
-            var progress = (snapshot.bytesTranfered / snapshot.totalBytes) * 100;
-            $$('#upProgress').html('Upload ' + progress + '%');
-        },
+            imagesRef.getDownloadURL().then(function (url) {
+                imgUrl = url;
+                console.log(imgUrl);
+                console.log(imgNombre);
 
-            function (error) {
-                alert('error in saving the image');
-            },
+                var id = firebase.auth().currentUser.uid;
+                claveColeccion = imgNombre;
 
-            function () {
-                uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
-                    imgUrl = url;
-                    console.log(imgUrl);
-                    console.log(imgNombre);
-                });
+                console.log(id);
 
-                // firebase.firestore().ref(colProducto).set({
-                //     Nombre: imgName,
-                //     Link: imgUrl
-                // })
-
-
-                claveColeccion = imgUrl;
-
-        
-
-                colProducto.doc(claveColeccion).set({
+                datamateo = {
+                    id: id,
                     Nombre: imgNombre,
-                    Link: imgUrl
-                })
+                    photoURL: imgUrl,
+                    Direccion: imgDireccion,
+                    Descripcion: imgDescripcion,
+                    rol: "producto"
+                }
+
+                colProducto.doc(claveColeccion).set(datamateo)
                     .then(() => {
                         console.log("Document successfully written!");
                     })
                     .catch((error) => {
                         console.error("Error writing document: ", error);
                     });
+            });
+        });
 
-            }
-
-        );
-
-    })
-
-
-
+    });
 })
 
 
@@ -209,8 +254,6 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
 
 var emailDelUser = "";
 
-var db = firebase.firestore();
-var colUsuario = db.collection("Usuarios");
 
 
 
