@@ -23,8 +23,6 @@ div[class*="col"] {
   font-size: 11px !important;
   margin: 2px !important;
   background-color: black;
-
-
 }
 
 .title{
@@ -36,8 +34,6 @@ div[class*="col"] {
 background-color: #DBDBDB;
 }
 
-
-
 .bajar{
   margin-bottom: 2px;
 }
@@ -46,6 +42,9 @@ background-color: #DBDBDB;
   background-color: #F8F8F8;
 }
 
+div[class*="barra"] {
+  margin-bottom: 0 !important;
+}
 
 
 

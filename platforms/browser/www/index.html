@@ -61,18 +61,22 @@
                             Tradder
                         </div>
 
-                        <div class="log right">
+                        <div class="navMod log right">
                             <a href="/registro/" id="bRegistro" class="botonesnav button button-fill">
                                 Registrate
                             </a>
-                            <div class="log right">
-                                <a href="/inicio/" id="bLogin" class="botonesnav button button-fill">
-                                    Iniciar sesion
-                                </a>
-                            </div>
-                            <div class="login right" id="registrado" style="display: none;">
+
+                            <a href="/inicio/" id="bLogin" class="botonesnav button button-fill">
+                                Iniciar sesion
+                            </a>
+
+                            <a id="cerrarSesion" class="botonesnav button button-fill" style="display: none;">
+                                Cerrar sesion
+                            </a>
+
+                            <!-- <div class="login right" id="registrado" style="display: none;">
                                 Estas logueado!
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -105,9 +109,15 @@
 
                         <div class="pedropicapiedra block">
                             <div class="row">
-                                <div class="col-100 medium-50">
+                                <div class="barra col-100 medium-50">
 
-
+                                    <div class="row">
+                                        <div class="col-100 medium-50">
+                                            <a href="/publicar/" id="bPublicar" class="button button-fill" style="display: none;">
+                                                Publica tu producto
+                                            </a>
+                                        </div>
+                                    </div>
 
                                     <form class="searchbar">
                                         <div class="searchbar-inner">
@@ -120,45 +130,35 @@
                                         </div>
                                     </form>
 
-                                    <div class="row">
-                                        <div class="col-100 medium-50">
-                                            <a href="/publicar/" id="bPublicar" class="button button-fill">
-                                                Publica tu producto
-                                            </a>
-                                        </div>
-                                    </div>
-
-
-
-                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="/Tradder/" data-view=".page-content"> Jero Tradder</a>
+                        <a href="/Tradder/" data-view=".page-content"> Jero Tradder</a>
 
-                    <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
-                    <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
+                        <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
+                        <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
 
-                    <!-- And somewhere in DOM -->
-                    <div class="popup my-popup">
-                        <div class="view">
-                            <div class="page">
-                                <div class="navbar">
-                                    <div class="navbar-bg"></div>
-                                    <div class="navbar-inner">
-                                        <div class="title">Popup</div>
-                                        <div class="right">
-                                            <!-- Link to close popup -->
-                                            <a class="link popup-close">Close</a>
+                        <!-- And somewhere in DOM -->
+                        <div class="popup my-popup">
+                            <div class="view">
+                                <div class="page">
+                                    <div class="navbar">
+                                        <div class="navbar-bg"></div>
+                                        <div class="navbar-inner">
+                                            <div class="title">Popup</div>
+                                            <div class="right">
+                                                <!-- Link to close popup -->
+                                                <a class="link popup-close">Close</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="page-content">
-                                    <div class="page">
-                                        <div class="navbar">
-                                            <div class="navbar-bg"></div>
-                                            <div class="navbar-inner">
-                                                <div class="title">Text Editor</div>
+                                    <div class="page-content">
+                                        <div class="page">
+                                            <div class="navbar">
+                                                <div class="navbar-bg"></div>
+                                                <div class="navbar-inner">
+                                                    <div class="title">Text Editor</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -169,7 +169,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 

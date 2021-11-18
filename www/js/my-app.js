@@ -57,54 +57,110 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
             // https://firebase.google.com/docs/reference/js/firebase.User
             var uid = user.uid;
             console.log(uid);
-            // ...
+
+            $$('#bRegistro').css("display", "none");
+            $$('#bLogin').css("display", "none");
+            $$('.navMod').append(
+                '<p id="cerrarSesion">' +
+                'Hola, ' +
+                '</p>'
+            )
+            $$('#bPublicar').css("display", "block");
+            $$('#cerrarSesion').on('click', signOut)
+            $$('#cerrarSesion').css("display", "block");
+
+
+
+
+
+            colProducto.where("rol", "==", "producto")
+                .get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, " => ", doc.data());
+
+                        // colUsuario.where('id', '==', uid).get().then((querySnapshot) => {
+
+
+
+
+                        $$(".pedropicapiedra").append(
+                            '<div class="carta card demo-card-header-pic">' +
+                            '<div class="block block-strong">' +
+                            '<p>' +
+                            '<img src="' + doc.data().photoURL + '" width="232" height="300" class="lazy lazy-fade-in demo-lazy" />' +
+                            '</p>' +
+                            doc.data().Nombre +
+                            '<div class="card-content card-content-padding">' +
+                            '<p class="date">' +
+                            doc.data().Direccion +
+                            '</p>' +
+                            '<p>' +
+                            doc.data().Descripcion +
+                            '</p>' +
+                            '</div>' +
+                            '<div class="card-footer">' +
+                            '<a href="#" class="link">' +
+                            "Like" +
+                            '</a>' +
+                            '<div class="block">' +
+                            '<div class="row">' +
+                            '<button id="pSubir" class=" button button-fill button-round">' +
+                            'Subir' +
+                            '</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div >');
+                    });
+                })
+
         } else {
-            // User is signed out
-            // ...
+            colProducto.where("rol", "==", "producto")
+                .get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, " => ", doc.data());
+
+                        // colUsuario.where('id', '==', uid).get().then((querySnapshot) => {
+
+
+
+
+                        $$(".pedropicapiedra").append(
+                            '<div class="carta card demo-card-header-pic">' +
+                            '<div class="block block-strong">' +
+                            '<p>' +
+                            '<img src="' + doc.data().photoURL + '" width="232" height="300" class="lazy lazy-fade-in demo-lazy" />' +
+                            '</p>' +
+                            doc.data().Nombre +
+                            '<div class="card-content card-content-padding">' +
+                            '<p class="date">' +
+                            doc.data().Direccion +
+                            '</p>' +
+                            '<p>' +
+                            doc.data().Descripcion +
+                            '</p>' +
+                            '</div>' +
+                            '<div class="card-footer">' +
+                            '<a href="#" class="link">' +
+                            "Like" +
+                            '</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div >');
+                    });
+                })
         }
     });
 
-    colProducto.where("rol", "==", "producto")
-        .get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-
-                colUsuario.where('id', '==', uid).get().then((querySnapshot) => {
-
-                }).catch((error) => {
-                    console.log("Error getting documents: ", error);
-                }) 
-
-
-                $$(".pedropicapiedra").append(
-                    '<div class="card demo-card-header-pic">' +
-                    '<img src="' + doc.data().photoURL + '" class="card-header align-items-flex-end" style="height: 200px; width: 200px; border: 2px solid black;">' +
-                     doc.data().Nombre +
-                    '<div class="card-content card-content-padding">' +
-                    '<p class="date">' +
-                    doc.data().Direccion +
-                    '</p>' +
-                    '<p>' +
-                    doc.data().Descripcion +
-                    '</p>' +
-                    '</div>' +
-                    '<div class="card-footer">' +
-                    '<a href="#" class="link">' +
-                    "Like" +
-                    '</a>' +
-                    '<a href="#" class="link">' +
-                    "Read more" +
-                    '</a>' +
-                    '</div>' +
-                    '</div >');
-            })
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
 
 })
+
+
+
+
 
 $$(document).on('page:init', '.page[data-name="iniciado"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
@@ -200,62 +256,7 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     });
 })
 
-
-
-
-
-
-// nombreImagen = $$('#lEmail').val();
-
-
-// function matemateo() {
-//     $$('#pImagen').on('change', function () {
-//         var storageRef = firebase.storage().ref();
-//         var imageRef = storageRef.child('mateoImagen');
-//         var file = this.files[0];
-
-//         imageRef.put(file).then(function (snapshot) {
-//             console.log('Uploaded a blob or file!');
-//         })
-//     });
-
-//     $$('#pPublicar').on('click', function() {
-//         var storageRef = firebase.storage().ref();
-//         var imageRef = storageRef.child('mateoImagen');
-
-//         imageRef.getDownloadURL().then(function(url) {
-//             // `url` is the download URL for 'images/stars.jpg'
-
-//             // This can be downloaded directly:
-//             var xhr = new XMLHttpRequest();
-//             xhr.responseType = 'blob';
-//             xhr.onload = function(event) {
-//               var blob = xhr.response;
-//             };
-//             xhr.open('GET', url);
-//             xhr.send();
-
-//             // Or inserted into an <img> element:
-//             // var img = document.getElementById('myimg');
-//             // img.src = url;
-//             console.log(url);
-//           }).catch(function(error) {
-//             // Handle any errors
-//           });
-//     })
-
-// }
-
-// function matemateo2() {
-
-// }
-
-
-
 var emailDelUser = "";
-
-
-
 
 //Logueo
 
@@ -289,7 +290,7 @@ function fnLogin() {
                     if (doc.data().rol == "admin") {
                         mainView.router.navigate('/panelAdmin/');
                     } else {
-                        mainView.router.navigate('/iniciado/');
+                        mainView.router.navigate('/index/');
 
                     }
 
@@ -317,6 +318,17 @@ function fnLogin() {
 
 
 }
+
+//Cerrar sesion
+
+function signOut() {
+    firebase.auth().signOut()
+      .then(() => {
+        mainView.router.refreshPage();
+      }).catch((error) => {
+        // An error happened.
+      });
+  }
 
 //Registro
 
