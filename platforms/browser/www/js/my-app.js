@@ -103,17 +103,17 @@ function fnHola (){
 
 var Envio = "";
 
- Envio += ` <div class="messages-title"><b>` + Nombre +  `<br>`  + timeMessage + `</b></div>
+Envio += `<div class="messages-title"><b>` + Nombre +  `<br>`  + timeMessage + `</b></div>
 
- <!-- Sent message (by default - green and on right side) -->
- <div class="message message-sent">
-   <div class="message-content">
-     <!-- Bubble with text -->
-     <div class="message-bubble">
-     <div class="message-text">` + Mensaje + `</div>
-     </div>
-   </div>
- </div>`;
+<!-- Sent message (by default - green and on right side) -->
+<div class="message message-sent">
+  <div class="message-content">
+    <!-- Bubble with text -->
+    <div class="message-bubble">
+      <div class="message-text">` + Mensaje + `</div>
+    </div>
+  </div>
+</div>`;
     $$("#Msg").append(Envio);
 
 }
