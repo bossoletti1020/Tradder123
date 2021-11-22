@@ -25,7 +25,7 @@ var app = new Framework7({
 
         { path: '/publicar/', url: 'publicar.html', },
 
-        { path: '/iniciado/', url: 'iniciado.html', }
+        { path: '/producto/', url: 'producto.html', }
 
     ]
     // ... other parameters
@@ -60,15 +60,11 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
             $$('#bRegistro').css("display", "none");
             $$('#bLogin').css("display", "none");
-            $$('.navMod').append(
-                '<p id="cerrarSesion">' +
-                'Hola, ' +
-                '</p>'
-            )
             $$('#bPublicar').css("display", "block");
             $$('#cerrarSesion').on('click', signOut)
             $$('#cerrarSesion').css("display", "block");
 
+            const usuario = firebase.auth().currentUser;
 
 
 
@@ -79,40 +75,38 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
                         // doc.data() is never undefined for query doc snapshots
                         console.log(doc.id, " => ", doc.data());
 
-                        // colUsuario.where('id', '==', uid).get().then((querySnapshot) => {
+                        colUsuario.where('id', '==', uid).get().then((querySnapshot) => {
 
 
 
 
-                        $$(".pedropicapiedra").append(
-                            '<div class="carta card demo-card-header-pic">' +
-                            '<div class="block block-strong">' +
-                            '<p>' +
-                            '<img src="' + doc.data().photoURL + '" width="232" height="300" class="lazy lazy-fade-in demo-lazy" />' +
-                            '</p>' +
-                            doc.data().Nombre +
-                            '<div class="card-content card-content-padding">' +
-                            '<p class="date">' +
-                            doc.data().Direccion +
-                            '</p>' +
-                            '<p>' +
-                            doc.data().Descripcion +
-                            '</p>' +
-                            '</div>' +
-                            '<div class="card-footer">' +
-                            '<a href="#" class="link">' +
-                            "Like" +
-                            '</a>' +
-                            '<div class="block">' +
-                            '<div class="row">' +
-                            '<button id="pSubir" class=" button button-fill button-round">' +
-                            'Subir' +
-                            '</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div >');
+                            $$(".pedropicapiedra").append(
+                                '<div class="carta card demo-card-header-pic">' +
+                                '<div class="block block-strong">' +
+                                '<img src="' + doc.data().photoURL + '" height="300" class="imgProducto lazy lazy-fade-in demo-lazy" style="; width: 100%;" />' +
+                                '<p class="contenidoProduct">' +
+                                doc.data().Nombre +
+                                '</p>' + '<hr>' + 
+                                '<div class="card-content card-content-padding">' +
+                                '<p class="contenidoProduct date">' + "Dirección: " +
+                                doc.data().Direccion +
+                                '</p>' +
+                                '<p class="contenidoProduct">' + "Descripción: " +
+                                doc.data().Descripcion +
+                                '</p>' + '<hr>' +
+                                '</div>' +
+                                '<div>' +
+                                '<div class="block">' +
+                                '<div class="row">' +
+                                '<button id="pSubir" class="btn-subir button button-fill button-round">' +
+                                'Contactar' +
+                                '</button>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div >');
+                        });
                     });
                 })
 
@@ -129,24 +123,19 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
 
                         $$(".pedropicapiedra").append(
-                            '<div class="carta card demo-card-header-pic">' +
+                            '<div class="card demo-card-header-pic">' +
                             '<div class="block block-strong">' +
-                            '<p>' +
-                            '<img src="' + doc.data().photoURL + '" width="232" height="300" class="lazy lazy-fade-in demo-lazy" />' +
-                            '</p>' +
-                            doc.data().Nombre +
+                            '<img src="' + doc.data().photoURL + '" class="imgProducto lazy lazy-fade-in demo-lazy" style="width: 100%;" />' +
+                            '<p class="contenidoProduct">' +
+                            doc.data().Nombre + 
+                            '</p>' + '<hr>' +
                             '<div class="card-content card-content-padding">' +
-                            '<p class="date">' +
-                            doc.data().Direccion +
-                            '</p>' +
-                            '<p>' +
+                            '<p class="contenidoProduct date">' + "Descripción: "+
                             doc.data().Descripcion +
                             '</p>' +
-                            '</div>' +
-                            '<div class="card-footer">' +
-                            '<a href="#" class="link">' +
-                            "Like" +
-                            '</a>' +
+                            '<p class="contenidoProduct">' + "Dirección: " +
+                            doc.data().Direccion +
+                            '</p>' + '<hr>' +
                             '</div>' +
                             '</div>' +
                             '</div >');
@@ -162,15 +151,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
 
 
-$$(document).on('page:init', '.page[data-name="iniciado"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    console.log(e);
 
-    $$('#bRegistro').css("display", "none");
-    $$('#bLogin').css("display", "none");
-    $$('#registrado').css("display", "block");
-    $$('#bPublicar').css("display", "block");
-})
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
@@ -206,7 +187,7 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
             files = e.target.files;
             reader = new FileReader();
             reader.onload = function () {
-                $$("#myImg").attr('src', this.result);
+                $$("#pSeleccionar").attr('src', this.result);
             }
             reader.readAsDataURL(files[0]);
         }
@@ -228,6 +209,7 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
                 imgUrl = url;
                 console.log(imgUrl);
                 console.log(imgNombre);
+                mainView.router.navigate('/index/');
 
                 var id = firebase.auth().currentUser.uid;
                 claveColeccion = imgNombre;
@@ -323,12 +305,12 @@ function fnLogin() {
 
 function signOut() {
     firebase.auth().signOut()
-      .then(() => {
-        mainView.router.refreshPage();
-      }).catch((error) => {
-        // An error happened.
-      });
-  }
+        .then(() => {
+            mainView.router.refreshPage();
+        }).catch((error) => {
+            // An error happened.
+        });
+}
 
 //Registro
 

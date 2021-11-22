@@ -18,12 +18,28 @@ div[class*="col"] {
 }
 
 .botonesnav {
-  height: 30px !important;
+  height: 35px !important;
   width: 90px !important;
   font-size: 11px !important;
   margin: 2px !important;
   background-color: black;
 }
+.botonCerrar{
+  height: 35px !important;
+  width: 120px !important;
+  font-size: 11px !important;
+  background-color: black;
+}
+
+.btn-publicar{
+  background-color: #96E77A;
+  color: black;
+  border: 2px solid black;
+}
+
+.btn-subir{
+  background-color:#38b000
+}  
 
 .title{
   font-size: 19px !important; 
@@ -39,11 +55,34 @@ background-color: #DBDBDB;
 }
 
 .pagina{
-  background-color: #F8F8F8;
+  background-color: #DBDBDB;
 }
 
-div[class*="barra"] {
+.barra {
   margin-bottom: 0 !important;
+}
+
+.imgProducto{
+  border: 2px solid black;
+}
+
+.card .block{
+ background-color:#96E77A;
+}
+
+.contenidoProduct{
+  text-align: center;
+  position: relative;
+}
+
+.card-content-padding{
+margin-top: -10px;
+}
+
+hr{
+  height: 2px;
+  background-color: black;
+  color: black;
 }
 
 
