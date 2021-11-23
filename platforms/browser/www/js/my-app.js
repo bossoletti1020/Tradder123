@@ -91,33 +91,26 @@ $$(document).on('page:init', '.page[data-name="Chat"]', function (e) {
 
 
 })
-
-function fnHola (){
-
- Mensaje = $$("#Mensaje").val();
- Nombre = emailDelUser;
- var hoy = new Date();
- var fecha = hoy.getDate() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getFullYear();
- var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
- var timeMessage = fecha + ' ' + hora;
-
-var Envio = "";
-
-Envio += `<div class="messages-title"><b>` + Nombre +  `<br>`  + timeMessage + `</b></div>
-
-<!-- Sent message (by default - green and on right side) -->
-<div class="message message-sent">
-  <div class="message-content">
-    <!-- Bubble with text -->
-    <div class="message-bubble">
-      <div class="message-text">` + Mensaje + `</div>
-    </div>
-  </div>
-</div>`;
-    $$("#Msg").append(Envio);
-
+function fnHola () {
+    var  Mensaje = document.getElementById("Mensaje").value;
+    
+    firebase.database().ref("Mensajes").push().set({
+    "Nombre": emailDelUser,
+    "mensaje": Mensaje, 
+});
+return false;
+   
 }
 
+firebase.database().ref("Mensajes").on("child_added", function (snapshot){
+var html = "";
+html += "<li>";
+html += snapshot.val().Nombre + ": " + snapshot.val().mensaje;
+html += "</li>";
+
+document.getElementById("Lista").innerHTML += html;
+
+});
 
 
 
