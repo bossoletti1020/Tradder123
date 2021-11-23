@@ -25,7 +25,7 @@ var app = new Framework7({
 
         { path: '/publicar/', url: 'publicar.html', },
 
-        { path: '/producto/', url: 'producto.html', }
+        { path: '/Chat/', url: 'Chat.html', },
 
     ]
     // ... other parameters
@@ -61,8 +61,9 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
             $$('#bRegistro').css("display", "none");
             $$('#bLogin').css("display", "none");
             $$('#bPublicar').css("display", "block");
-            $$('#cerrarSesion').on('click', signOut)
             $$('#cerrarSesion').css("display", "block");
+            $$('#cerrarSesion').on('click', signOut);
+
 
             const usuario = firebase.auth().currentUser;
 
@@ -86,7 +87,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
                                 '<img src="' + doc.data().photoURL + '" height="300" class="imgProducto lazy lazy-fade-in demo-lazy" style="; width: 100%;" />' +
                                 '<p class="contenidoProduct">' +
                                 doc.data().Nombre +
-                                '</p>' + '<hr>' + 
+                                '</p>' + '<hr>' +
                                 '<div class="card-content card-content-padding">' +
                                 '<p class="contenidoProduct date">' + "Dirección: " +
                                 doc.data().Direccion +
@@ -98,8 +99,10 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
                                 '<div>' +
                                 '<div class="block">' +
                                 '<div class="row">' +
-                                '<button id="pSubir" class="btn-subir button button-fill button-round">' +
+                                '<button  class="btn-subir button button-fill button-round">' +
+                                '<a href="/Chat/" class="link" style="color: black;">' +
                                 'Contactar' +
+                                '</a>' +
                                 '</button>' +
                                 '</div>' +
                                 '</div>' +
@@ -127,10 +130,10 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
                             '<div class="block block-strong">' +
                             '<img src="' + doc.data().photoURL + '" class="imgProducto lazy lazy-fade-in demo-lazy" style="width: 100%;" />' +
                             '<p class="contenidoProduct">' +
-                            doc.data().Nombre + 
+                            doc.data().Nombre +
                             '</p>' + '<hr>' +
                             '<div class="card-content card-content-padding">' +
-                            '<p class="contenidoProduct date">' + "Descripción: "+
+                            '<p class="contenidoProduct date">' + "Descripción: " +
                             doc.data().Descripcion +
                             '</p>' +
                             '<p class="contenidoProduct">' + "Dirección: " +
@@ -203,7 +206,7 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
         var imagesRef = firebase.storage().ref('Imagen/' + imgNombre + ".png");
 
         imagesRef.put(files[0]).then(function (snapshot) {
-            console.log('Uploaded a blob or file!');
+            alert('Producto publicado, Refrescando')
 
             imagesRef.getDownloadURL().then(function (url) {
                 imgUrl = url;
@@ -238,8 +241,50 @@ $$(document).on('page:init', '.page[data-name="publicar"]', function (e) {
     });
 })
 
+$$(document).on('page:init', '.page[data-name="Chat"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$("#EnviarM").on("click", fnChat);
+
+
+})
+
+
+function fnChat() {
+    var Mensaje = document.getElementById("Mensaje").value;
+
+    mensajes = {
+        Mail: emailDelUser,
+        mensaje: Mensaje
+    }
+
+    firebase.database().ref("Mensajes").push().set(mensajes);
+    return false;
+
+}
+
+firebase.database().ref("Mensajes").on("child_added", function (snapshot) {
+    var html = "";
+    html += "<div class='container'>";
+    html += "<p>"
+    html += snapshot.val().Mail+ ": " + snapshot.val().mensaje;
+    html +="</p>";
+    html += "</div>";
+
+    document.getElementById("Lista").innerHTML += html;
+
+});
 var emailDelUser = "";
 
+//Cerrar sesion
+
+function signOut() {
+    firebase.auth().signOut()
+        .then(() => {
+            mainView.router.refreshPage();
+        }).catch((error) => {
+            // An error happened.
+        });
+}
 //Logueo
 
 
@@ -293,7 +338,7 @@ function fnLogin() {
             var errorMessage = error.message;
 
             console.error(errorCode);
-            console.error(errorMessage);
+            alert(errorMessage);
         });
 
 
@@ -301,16 +346,7 @@ function fnLogin() {
 
 }
 
-//Cerrar sesion
 
-function signOut() {
-    firebase.auth().signOut()
-        .then(() => {
-            mainView.router.refreshPage();
-        }).catch((error) => {
-            // An error happened.
-        });
-}
 
 //Registro
 
@@ -367,7 +403,7 @@ function fnRegistro() {
             var errorMessage = error.message;
 
             console.error(errorCode);
-            console.error(errorMessage);
+            alert(errorMessage);
 
             if (errorCode == "auth/email-already-in-use") {
                 console.error("el mail ya esta usado");
@@ -379,5 +415,6 @@ function fnRegistro() {
 
 
 }
+
 
 
